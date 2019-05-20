@@ -6,6 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+    <com.mindorks.placeholderview.PlaceHolderView android:layout_width="match_parent"
+                                                  android:layout_height="wrap_content"
+                                                  android:elevation="0dp"
+                                                  android:id="@+id/phv_user"
+                                                  android:layout_marginTop="8dp"
+                                                  android:orientation="horizontal"
+                                                  app:layout_constraintTop_toTopOf="parent">
+
+    </com.mindorks.placeholderview.PlaceHolderView>
 
     <TextView
             android:id="@+id/txv_hello"

@@ -8,11 +8,13 @@ import butterknife.BindView
 import butterknife.ButterKnife
 
 import kotlinx.android.synthetic.main.activity_next.*
+import retrofit2.Retrofit
 import javax.inject.Inject
 
 class NextActivity : AppCompatActivity() {
 
-    @Inject lateinit var info: Info
+    @Inject
+    lateinit var retrofit: Retrofit
 
     @BindView(R.id.txv_next_hello)
     lateinit var txvNextHello : TextView
@@ -23,9 +25,8 @@ class NextActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         ButterKnife.bind(this)
 
-        DaggerMagicBox.create().poke(this)
+        (application as DaggerApplication).getAppComponent().inject(this) // Injecting using `ComputerComponent` initialised in application class
 
-        txvNextHello.text = info.nextText
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

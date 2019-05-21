@@ -1,13 +1,15 @@
-package com.example.dagger2
+package com.example.dagger2.view
 
 import android.widget.TextView
-import com.example.dagger2.network.response.Users
+import com.example.dagger2.R
+import com.example.myapplication.UserList
+import com.example.myapplication.Users
 import com.mindorks.placeholderview.annotations.Layout
 import com.mindorks.placeholderview.annotations.Resolve
 import com.mindorks.placeholderview.annotations.View
 
-@Layout(R.layout.layout_view)
-class ViewGenerator(private val userData : Users){
+@Layout(R.layout.layout_user_view)
+class UserViewGenerator(private val userData: Users)  {
     @View(R.id.textView1)
     lateinit var textView1: TextView
     @View(R.id.textView2)

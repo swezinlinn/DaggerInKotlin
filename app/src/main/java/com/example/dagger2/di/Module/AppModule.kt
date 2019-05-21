@@ -11,7 +11,5 @@ class AppModule(mApplication: Application) {
 
     @Provides
     @Singleton
-    fun providesApplication(): Application {
-        return application
-    }
+    fun providesApplication(): Application = application
 }

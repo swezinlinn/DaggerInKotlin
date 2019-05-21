@@ -1,6 +1,5 @@
-package com.example.dagger2.network.response
+package com.example.myapplication
 
-import com.example.dagger2.network.response.Users
 import com.google.gson.annotations.SerializedName
 
 class UserList{

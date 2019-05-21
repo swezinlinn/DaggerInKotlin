@@ -1,23 +1,26 @@
 package com.example.dagger2
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.example.dagger2.viewmodel.UserViewModel
 
 import kotlinx.android.synthetic.main.activity_next.*
-import retrofit2.Retrofit
-import javax.inject.Inject
+import android.arch.lifecycle.ViewModelProviders
+import android.support.v7.widget.LinearLayoutManager
+import com.example.dagger2.view.UserViewGenerator
+import com.example.myapplication.Users
+import com.mindorks.placeholderview.PlaceHolderView
+
 
 class NextActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var retrofit: Retrofit
+    @BindView(R.id.phv_user)
+    lateinit var phvUser : PlaceHolderView
 
-    @BindView(R.id.txv_next_hello)
-    lateinit var txvNextHello : TextView
+    lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +30,32 @@ class NextActivity : AppCompatActivity() {
 
         (application as DaggerApplication).getAppComponent().inject(this) // Injecting using `ComputerComponent` initialised in application class
 
+        setView()
 
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+
+        userViewModel.getUserList().observe(this,Observer{
+                data: List<Users>? -> for(i in 0 until data!!.size) {
+                   phvUser.addView(
+                       UserViewGenerator(data[i]))
+               }
+        })
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+
         }
+    }
+
+    fun setView(){
+        phvUser.builder
+            .setHasFixedSize(false)
+            .setItemViewCacheSize(10)
+            .setLayoutManager(
+                LinearLayoutManager(
+                    this,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            )
     }
 
 }

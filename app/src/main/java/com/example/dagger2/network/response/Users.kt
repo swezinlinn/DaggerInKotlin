@@ -1,4 +1,4 @@
-package com.example.dagger2.network.response
+package com.example.myapplication
 
 class Users{
     var id : Int = 0

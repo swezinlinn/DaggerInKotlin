@@ -4,6 +4,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.example.dagger2.network.UserApi
+import com.example.dagger2.resource.Resource
+import com.example.dagger2.resource.setError
+import com.example.dagger2.resource.setLoading
+import com.example.dagger2.resource.setSuccess
 import com.example.myapplication.UserList
 import com.example.myapplication.Users
 import retrofit2.Call
@@ -15,17 +19,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class UserViewModel : ViewModel() {
 
-    private var userList : MutableLiveData<List<Users>>?= null
+    private var userList : MutableLiveData<Resource<List<Users>>>?= null
 
-    fun getUserList() : MutableLiveData<List<Users>> {
+    fun getUserList() : MutableLiveData<Resource<List<Users>>> {
         if (userList == null) {
-            userList = MutableLiveData<List<Users>>()
+            userList = MutableLiveData<Resource<List<Users>>>()
             loadUser();
         }
-        return userList as MutableLiveData<List<Users>>
+        return userList as MutableLiveData<Resource<List<Users>>>
     }
 
     fun loadUser() {
+    userList!!.setLoading()
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.github.com/search/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -42,12 +47,12 @@ class UserViewModel : ViewModel() {
             override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
                 if(response.isSuccessful){
                     Log.d("TAG", "on success")
-                    userList!!.value = response.body()!!.users
+                    userList?.setSuccess(response.body()?.users)
                 }else{
+                    userList?.setError("fail to load data.")
                     Log.d("TAG", "on failure")
                 }
             }
         })
-
     }
 }

@@ -8,11 +8,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_next"
         tools:context=".NextActivity">
-    <TextView
-            android:id="@+id/txv_next_hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello Next!" tools:ignore="MissingConstraints"/>
+
     <com.mindorks.placeholderview.PlaceHolderView android:layout_width="match_parent"
                                                   android:layout_height="wrap_content"
                                                   android:elevation="0dp"
@@ -24,4 +20,13 @@
                                                   app:layout_constraintBottom_toBottomOf="parent">
 
     </com.mindorks.placeholderview.PlaceHolderView>
+    <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/av_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:indicatorName="BallPulseIndicator"
+            app:layout_constraintTop_toTopOf="@+id/phv_user" app:layout_constraintBottom_toBottomOf="@+id/phv_user"
+            app:layout_constraintStart_toStartOf="@+id/phv_user" app:layout_constraintEnd_toEndOf="@+id/phv_user"
+            android:layout_marginEnd="8dp"/>
 </android.support.constraint.ConstraintLayout>

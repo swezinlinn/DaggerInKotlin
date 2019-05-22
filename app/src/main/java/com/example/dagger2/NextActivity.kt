@@ -10,15 +10,20 @@ import com.example.dagger2.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_next.*
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
+import com.example.dagger2.resource.Resource
+import com.example.dagger2.resource.ResourceState
 import com.example.dagger2.view.UserViewGenerator
 import com.example.myapplication.Users
 import com.mindorks.placeholderview.PlaceHolderView
+import com.wang.avi.AVLoadingIndicatorView
 
 
 class NextActivity : AppCompatActivity() {
 
     @BindView(R.id.phv_user)
     lateinit var phvUser : PlaceHolderView
+    @BindView(R.id.av_loading)
+    lateinit var avLoading: AVLoadingIndicatorView
 
     lateinit var userViewModel: UserViewModel
 
@@ -33,15 +38,34 @@ class NextActivity : AppCompatActivity() {
         setView()
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+        userViewModel.getUserList().observe(this,Observer{ showList(it)})
 
-        userViewModel.getUserList().observe(this,Observer{
-                data: List<Users>? -> for(i in 0 until data!!.size) {
-                   phvUser.addView(
-                       UserViewGenerator(data[i]))
-               }
-        })
         fab.setOnClickListener { view ->
 
+        }
+    }
+
+    fun showList(resource : Resource<List<Users>>?){
+        resource?.let {
+            when(it.state){
+                ResourceState.LOADING -> avLoading.show()
+                ResourceState.SUCCESS -> avLoading.hide()
+                ResourceState.ERROR -> avLoading.hide()
+            }
+
+            it.data?.let{
+                for(i in 0 until it.size){
+                    phvUser.addView(
+                        UserViewGenerator(
+                            it.get(i)
+                        )
+                    )
+                }
+            }
+
+            it.message?.let {
+
+            }
         }
     }
 
@@ -57,5 +81,4 @@ class NextActivity : AppCompatActivity() {
                 )
             )
     }
-
 }

@@ -10,7 +10,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import javax.inject.Inject
 import android.util.Log
-import com.example.dagger2.network.UserApi
+import com.example.dagger2.network.api.UserApi
 import com.example.dagger2.view.UserViewGenerator
 import com.example.myapplication.UserList
 import com.mindorks.placeholderview.PlaceHolderView

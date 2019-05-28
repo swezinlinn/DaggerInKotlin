@@ -1,11 +1,12 @@
 package com.example.dagger2
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.example.dagger2.viewmodel.UserViewModel
+import com.example.dagger2.presentation.UserViewModel
 
 import kotlinx.android.synthetic.main.activity_next.*
 import android.arch.lifecycle.ViewModelProviders
@@ -16,6 +17,7 @@ import com.example.dagger2.view.UserViewGenerator
 import com.example.myapplication.Users
 import com.mindorks.placeholderview.PlaceHolderView
 import com.wang.avi.AVLoadingIndicatorView
+import javax.inject.Inject
 
 
 class NextActivity : AppCompatActivity() {
@@ -26,6 +28,7 @@ class NextActivity : AppCompatActivity() {
     lateinit var avLoading: AVLoadingIndicatorView
 
     lateinit var userViewModel: UserViewModel
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +40,8 @@ class NextActivity : AppCompatActivity() {
 
         setView()
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        userViewModel.getUserList().observe(this,Observer{ showList(it)})
+        userViewModel = ViewModelProviders.of(this,viewModelFactory)[UserViewModel::class.java]
+        userViewModel.userList.observe(this,Observer{ showList(it)})
 
         fab.setOnClickListener { view ->
 

@@ -1,6 +1,8 @@
 package com.example.dagger2.di.Module
 
-import com.example.dagger2.network.UserApi
+import com.example.dagger2.network.api.UserApi
+import com.example.dagger2.repository.UserRepoImplementation
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -20,4 +22,9 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideImageApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserService(userApi: UserApi): UserRepoImplementation =
+        UserRepoImplementation(userApi)
 }

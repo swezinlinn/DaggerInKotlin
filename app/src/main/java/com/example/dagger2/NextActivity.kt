@@ -17,6 +17,8 @@ import com.example.dagger2.view.UserViewGenerator
 import com.example.myapplication.Users
 import com.mindorks.placeholderview.PlaceHolderView
 import com.wang.avi.AVLoadingIndicatorView
+import dagger.Provides
+import kotlinx.android.synthetic.main.content_next.*
 import javax.inject.Inject
 
 
@@ -51,9 +53,9 @@ class NextActivity : AppCompatActivity() {
     fun showList(resource : Resource<List<Users>>?){
         resource?.let {
             when(it.state){
-                ResourceState.LOADING -> avLoading.show()
-                ResourceState.SUCCESS -> avLoading.hide()
-                ResourceState.ERROR -> avLoading.hide()
+                ResourceState.LOADING -> av_loading.show()
+                ResourceState.SUCCESS -> av_loading.hide()
+                ResourceState.ERROR -> av_loading.hide()
             }
 
             it.data?.let{

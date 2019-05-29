@@ -18,5 +18,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(UserViewModel::class)
-    abstract fun bindUserViewModel(userViewModel: UserViewModel) : UserViewModel
+    abstract fun bindUserViewModel(userViewModel: UserViewModel) : ViewModel
 }

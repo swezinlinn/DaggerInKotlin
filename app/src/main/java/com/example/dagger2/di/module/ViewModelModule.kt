@@ -1,7 +1,7 @@
-package com.example.dagger2.di.Module
+package com.example.dagger2.di.module
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.dagger2.di.viewmodel.ViewModelFactory
 import com.example.dagger2.di.viewmodel.ViewModelKey
 import com.example.dagger2.presentation.UserViewModel

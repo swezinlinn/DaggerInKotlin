@@ -1,23 +1,35 @@
 package com.example.dagger2
 
+import android.app.Activity
 import android.app.Application
-import com.example.dagger2.di.ApplicationComponent
+import androidx.fragment.app.Fragment
+import androidx.multidex.MultiDexApplication
 import com.example.dagger2.di.DaggerApplicationComponent
-import com.example.dagger2.di.Module.AppModule
-import com.example.dagger2.di.Module.NetworkModule
+import com.example.dagger2.di.module.AppModule
+import com.example.dagger2.di.module.NetworkModule
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
-class DaggerApplication : Application(){
-    private lateinit var appComponent : ApplicationComponent
+open class DaggerApplication : MultiDexApplication(), HasActivityInjector{
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerApplicationComponent.builder()
+
+        DaggerApplicationComponent.builder()
             // list of modules that are part of this component need to be created here too
-            .appModule(AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
+            .application(this)
+            .appModule(AppModule(this))
             .networkModule(NetworkModule())
-            .build()
+            .build().inject(this)
+
     }
 
-    fun getAppComponent(): ApplicationComponent {
-        return appComponent
-    }
+    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 }

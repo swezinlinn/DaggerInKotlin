@@ -1,8 +1,7 @@
-package com.example.dagger2.di.Module
+package com.example.dagger2.di.module
 
 import com.example.dagger2.network.api.UserApi
 import com.example.dagger2.repository.UserRepoImplementation
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

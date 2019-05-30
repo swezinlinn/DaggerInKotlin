@@ -1,6 +1,6 @@
 package com.example.dagger2.resource
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 
 fun <T> MutableLiveData<Resource<T>>.setInitial() =
         postValue(Resource(ResourceState.INITIAL, null,null))

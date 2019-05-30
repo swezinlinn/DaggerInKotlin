@@ -1,4 +1,4 @@
-package com.example.dagger2.di.Module
+package com.example.dagger2.di.module
 
 import android.app.Application
 import dagger.Module
@@ -9,7 +9,4 @@ import dagger.Provides
 class AppModule(mApplication: Application) {
     var application: Application = mApplication
 
-    @Provides
-    @Singleton
-    fun providesApplication(): Application = application
 }

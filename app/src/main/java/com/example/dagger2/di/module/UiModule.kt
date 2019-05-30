@@ -1,11 +1,9 @@
-package com.example.dagger2.di.Module
+package com.example.dagger2.di.module
 
 import com.example.dagger2.domain.scheduler.PostExecutionThread
 import com.example.dagger2.util.UiThread
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 abstract class UiModule {
